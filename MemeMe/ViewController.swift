@@ -48,6 +48,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.delegate = self
         
         resetToLanchState(self)
+        
+        imageView.userInteractionEnabled = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -155,6 +157,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         hideToolbar(false)
         
         return memedImage
+    }
+    
+    @IBAction func tapped(sender: AnyObject) {
+        // hide the toolbar to preview memedImage
+        let hidden = topToolbar.hidden
+        hideToolbar(!hidden)
     }
     
     func hideToolbar(hidden: Bool) {
