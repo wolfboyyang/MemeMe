@@ -79,6 +79,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             UIKeyboardWillHideNotification, object: nil)
     }
 
+    // MemeMe does not need the satuse bar
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 
     @IBAction func pickAnImage(sender: AnyObject) {
         let imagePicker = UIImagePickerController()
