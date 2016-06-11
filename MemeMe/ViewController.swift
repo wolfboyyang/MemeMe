@@ -29,6 +29,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName : -4.0 //a negative value for stroke width creates both a fill and stroke.
     ]
+    
+    // the ratio the decide the memeTextField Position
+    let MemeTextPositionRatioToImageHeight: CGFloat = 0.3
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,13 +134,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // set the top/bottom text field position to 0.2/0.8 to the image
     func ressetMemeTextFieldPositon() {
-        var imageScaledHeight = imageView.frame.height
+        var scaledImageHeight = imageView.frame.height
         if let image = imageView.image {
-            imageScaledHeight = min(image.size.height * imageView.frame.width/image.size.width, imageView.frame.height)
+            scaledImageHeight = min(image.size.height * imageView.frame.width/image.size.width, imageView.frame.height)
         }
         
-        topTextFieldCenterYContraint.constant = -imageScaledHeight * 0.3
-        bottomTextFieldCenterYContraint.constant = imageScaledHeight * 0.3
+        topTextFieldCenterYContraint.constant = -scaledImageHeight * MemeTextPositionRatioToImageHeight
+        bottomTextFieldCenterYContraint.constant = scaledImageHeight * MemeTextPositionRatioToImageHeight
     }
     
     @IBAction func shareMeme(sender: AnyObject) {
