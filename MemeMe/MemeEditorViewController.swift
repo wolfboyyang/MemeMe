@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     
     @IBOutlet weak var imageView: UIImageView!
@@ -23,6 +23,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // bottomTextField.center.y = imageView.center.y + constant
     @IBOutlet weak var bottomTextFieldCenterYContraint: NSLayoutConstraint!
     
+    var meme: Meme?
+    
+    var memedImageWidth: CGFloat = 0
+    var memedImageHeight: CGFloat = 0
+    var viewSize: CGSize = CGSize()
+    
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(), // black text border color
         NSForegroundColorAttributeName : UIColor.whiteColor(), // white text color
@@ -31,11 +37,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     ]
     
     // the ratio the decide the memeTextField Position
-    let MemeTextPositionRatioToImageHeight: CGFloat = 0.3
+    let MemeTextPorportion: CGFloat = 0.3
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
+        // view size is used to decide the position of Top/Bottom Text
+        viewSize = view.frame.size
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         /*
@@ -54,7 +63,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         setMemeTextAttributes(topTextField)
         setMemeTextAttributes(bottomTextField)
 
-        resetToLanchState(self)
+        setMeme(meme)
         // let the image view be able to be tapped to hide/show toolbar
         imageView.userInteractionEnabled = true
     }
@@ -127,20 +136,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // user rotated the phone to another orientation
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         //move the meme text to proper position
+        viewSize = size
         ressetMemeTextFieldPositon()
     }
     
-    // set the top/bottom text field position to 0.2/0.8 to the image
+    // set the top/bottom text field position according to viewSize & MemeTextPorportion
     func ressetMemeTextFieldPositon() {
-        var scaledImageHeight = imageView.frame.height
+        var scaledImageHeight = viewSize.height
+        var scaledImageWidth = viewSize.width
         if let image = imageView.image {
-            scaledImageHeight = min(image.size.height * imageView.frame.width/image.size.width, imageView.frame.height)
+            scaledImageHeight = min(viewSize.width * image.size.height / image.size.width, viewSize.height)
+            scaledImageWidth =  scaledImageHeight * image.size.width / image.size.height
         }
+        // set the memedImage size for saving meme later
+        memedImageWidth = scaledImageWidth
+        memedImageHeight = scaledImageHeight
         
-        topTextFieldCenterYContraint.constant = -scaledImageHeight * MemeTextPositionRatioToImageHeight
-        bottomTextFieldCenterYContraint.constant = scaledImageHeight * MemeTextPositionRatioToImageHeight
+        topTextFieldCenterYContraint.constant = -scaledImageHeight * MemeTextPorportion
+        bottomTextFieldCenterYContraint.constant = scaledImageHeight * MemeTextPorportion
     }
     
     @IBAction func shareMeme(sender: AnyObject) {
@@ -150,6 +165,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityViewController.completionWithItemsHandler = { (activityType: String?, completed: Bool, returnedItems: [AnyObject]?, activityError: NSError?) in
             if completed {
                 self.save(memedImage)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
         
@@ -158,36 +174,60 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
-    // reset the top/bottom text, remove the image & disable share button
-    @IBAction func resetToLanchState(sender: AnyObject) {
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        imageView.image = nil
-        
+    // Close the editor and return to Sent Memes View
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func setMeme(meme: Meme!) {
+        if let meme = meme {
+            topTextField.text = meme.topText
+            bottomTextField.text = meme.bottomText
+            imageView.image = meme.image
+            shareButton.enabled = true
+        } else {
+            topTextField.text = "TOP"
+            bottomTextField.text = "BOTTOM"
+            imageView.image = nil
+            // disable share button as no image is picked
+            shareButton.enabled = false
+        }
         ressetMemeTextFieldPositon()
-        
-        // disable share button as no image is picked at first
-        shareButton.enabled = false
     }
     
     func save(memedImage: UIImage) {
-        print("save meme")
         //Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: memedImage)
         
+        // Add it to the memes array in the Application Delegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func generateMemedImage() -> UIImage
     {
         // hide the toolbar
         hideToolbar(true)
+
+        let x = imageView.center.x - memedImageWidth * 0.5
+        let y = imageView.center.y - memedImageHeight * 0.5
         
+        let memedImageRect = CGRectMake(x, y, memedImageWidth, memedImageHeight)
+
         // Render view to an image
         UIGraphicsBeginImageContext(view.frame.size)
-        view.drawViewHierarchyInRect(view.frame,
-                                     afterScreenUpdates: true)
-        let memedImage : UIImage =
+        
+        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
+        let screenImage : UIImage =
             UIGraphicsGetImageFromCurrentImageContext()
+        
+        // create memedImage as subImage of screenImage
+        let imageRef = screenImage.CGImage
+        let memedImageRef = CGImageCreateWithImageInRect(imageRef, memedImageRect)
+        
+        let memedImage : UIImage = UIImage(CGImage: memedImageRef!)
         UIGraphicsEndImageContext()
+        
         
         // show the toolbar
         hideToolbar(false)

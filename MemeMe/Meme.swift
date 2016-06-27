@@ -6,7 +6,6 @@
 //  Copyright © 2016 Udacity. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 struct Meme {
@@ -14,4 +13,14 @@ struct Meme {
     let bottomText: String
     let image: UIImage
     let memedImage: UIImage
+    
+    var description: String {
+        if topText.isEmpty {
+            return bottomText
+        } else if bottomText.isEmpty {
+            return topText
+        } else {
+            return topText + "..." + bottomText
+        }
+    }
 }
