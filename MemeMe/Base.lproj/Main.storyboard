@@ -11,6 +11,7 @@
         <scene sceneID="FmW-Ge-Hmx">
             <objects>
                 <tabBarController id="h9f-Je-DDP" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Rzb-x8-l1c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -52,7 +53,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeTableViewCell" rowHeight="73" id="zm0-Uc-tkv" customClass="MemeTableViewCell" customModule="MemeMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="73"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="73"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zm0-Uc-tkv" id="niu-wh-kZj">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
@@ -93,7 +94,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="Rq5-Q7-MwJ">
-                        <barButtonItem key="rightBarButtonItem" title="＋" id="Y4n-we-Uro">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Y4n-we-Uro">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="presentation" id="QYg-gm-CoU"/>
                             </connections>
@@ -140,7 +141,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MemeCollectionViewCell" id="gp2-YX-JDV" customClass="MemeCollectionViewCell" customModule="MemeMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="133" height="133"/>
+                                <rect key="frame" x="0.0" y="44" width="133" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="133" height="133"/>
@@ -163,7 +164,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="6xG-TG-lzt">
-                        <barButtonItem key="rightBarButtonItem" title="＋" id="2Ol-Mp-mbt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Ol-Mp-mbt">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="presentation" id="vzV-ke-M3i"/>
                             </connections>
@@ -245,25 +246,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="R8R-bA-zgJ" firstAttribute="leading" secondItem="VPf-0d-XhW" secondAttribute="leading" id="5GX-pQ-MPb"/>
-                            <constraint firstItem="VPf-0d-XhW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="8Yf-ZD-OrK"/>
+                            <constraint firstItem="VPf-0d-XhW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Fpt-Ji-VFP"/>
+                            <constraint firstItem="VPf-0d-XhW" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Nyq-FJ-TEn"/>
                             <constraint firstItem="svU-TF-Tfv" firstAttribute="leading" secondItem="VPf-0d-XhW" secondAttribute="leading" id="O6e-MY-sSj"/>
+                            <constraint firstItem="VPf-0d-XhW" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="OGT-Rt-3nS"/>
                             <constraint firstItem="svU-TF-Tfv" firstAttribute="centerY" secondItem="VPf-0d-XhW" secondAttribute="centerY" constant="-200" id="QL5-JV-CAv"/>
                             <constraint firstItem="R8R-bA-zgJ" firstAttribute="trailing" secondItem="VPf-0d-XhW" secondAttribute="trailing" id="RXr-GF-rNy"/>
                             <constraint firstItem="07u-uX-bs1" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="bHm-xe-5J5"/>
-                            <constraint firstItem="VPf-0d-XhW" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="20" id="c01-s6-yJo">
-                                <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                            </constraint>
                             <constraint firstItem="svU-TF-Tfv" firstAttribute="trailing" secondItem="VPf-0d-XhW" secondAttribute="trailing" id="fBA-v3-pye"/>
                             <constraint firstItem="ylK-v6-K7K" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="gCA-fY-bC9"/>
                             <constraint firstItem="07u-uX-bs1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="hFG-UB-0Df"/>
                             <constraint firstItem="ylK-v6-K7K" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="20" id="iYz-6h-yVa"/>
+                            <constraint firstItem="VPf-0d-XhW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ktc-JE-XoV"/>
                             <constraint firstItem="ylK-v6-K7K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="nAj-Qi-RJk"/>
-                            <constraint firstItem="VPf-0d-XhW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="ndy-mg-00a"/>
                             <constraint firstItem="07u-uX-bs1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="20" id="p2x-S6-ndJ"/>
-                            <constraint firstItem="VPf-0d-XhW" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="t2s-Qh-XyL"/>
                             <constraint firstItem="R8R-bA-zgJ" firstAttribute="centerY" secondItem="VPf-0d-XhW" secondAttribute="centerY" constant="200" id="ygV-oH-M5k"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="bottomTextField" destination="R8R-bA-zgJ" id="clF-OV-GSp"/>
                         <outlet property="bottomTextFieldCenterYContraint" destination="ygV-oH-M5k" id="kKC-pz-zVh"/>
@@ -288,7 +288,7 @@
         <!--MemeDetailViewController-->
         <scene sceneID="vhP-hR-NTP">
             <objects>
-                <viewController storyboardIdentifier="MemeDetailViewController" id="qIX-7Z-7wy" userLabel="MemeDetailViewController" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeDetailViewController" hidesBottomBarWhenPushed="YES" id="qIX-7Z-7wy" userLabel="MemeDetailViewController" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zSz-Eu-K0Q"/>
                         <viewControllerLayoutGuide type="bottom" id="YWe-7s-8ba"/>
@@ -298,25 +298,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VSs-A4-2xI">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <navigationBar hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGh-vl-Xc5">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Sent Item" id="n7k-2A-fYl"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="VSs-A4-2xI" secondAttribute="trailing" constant="-20" id="AAj-LW-DfK"/>
-                            <constraint firstItem="VSs-A4-2xI" firstAttribute="top" secondItem="jGh-vl-Xc5" secondAttribute="bottom" id="Cer-yw-fpo"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jGh-vl-Xc5" secondAttribute="trailing" constant="-20" id="QFw-Er-T6M"/>
-                            <constraint firstItem="VSs-A4-2xI" firstAttribute="leading" secondItem="3Xr-Ut-V7u" secondAttribute="leadingMargin" constant="-20" id="dVm-j8-fHK"/>
-                            <constraint firstItem="VSs-A4-2xI" firstAttribute="bottom" secondItem="YWe-7s-8ba" secondAttribute="top" id="gbW-dp-tsr"/>
-                            <constraint firstItem="jGh-vl-Xc5" firstAttribute="top" secondItem="zSz-Eu-K0Q" secondAttribute="bottom" id="v1f-pA-NXO"/>
-                            <constraint firstItem="jGh-vl-Xc5" firstAttribute="leading" secondItem="3Xr-Ut-V7u" secondAttribute="leadingMargin" constant="-20" id="v6t-9P-SgD"/>
-                            <constraint firstItem="VSs-A4-2xI" firstAttribute="top" secondItem="jGh-vl-Xc5" secondAttribute="bottom" id="wfw-q9-Xvn"/>
+                            <constraint firstItem="VSs-A4-2xI" firstAttribute="centerY" secondItem="3Xr-Ut-V7u" secondAttribute="centerY" id="0dG-7j-u1c"/>
+                            <constraint firstItem="VSs-A4-2xI" firstAttribute="width" secondItem="3Xr-Ut-V7u" secondAttribute="width" id="RpD-HV-6my"/>
+                            <constraint firstItem="VSs-A4-2xI" firstAttribute="centerX" secondItem="3Xr-Ut-V7u" secondAttribute="centerX" id="nOe-ce-Kej"/>
+                            <constraint firstItem="VSs-A4-2xI" firstAttribute="height" secondItem="3Xr-Ut-V7u" secondAttribute="height" id="oy5-1C-4V2"/>
                         </constraints>
                     </view>
                     <connections>
@@ -333,6 +323,6 @@
         <image name="tableView" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vzV-ke-M3i"/>
+        <segue reference="QYg-gm-CoU"/>
     </inferredMetricsTieBreakers>
 </document>

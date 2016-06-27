@@ -18,9 +18,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var navToolbar: UIToolbar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    // topTextField.center.y = imageView.center.y + constant
     @IBOutlet weak var topTextFieldCenterYContraint: NSLayoutConstraint!
-    // bottomTextField.center.y = imageView.center.y + constant
     @IBOutlet weak var bottomTextFieldCenterYContraint: NSLayoutConstraint!
     
     var meme: Meme?
@@ -30,23 +28,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     var viewSize: CGSize = CGSize()
     
     let memeTextAttributes = [
-        NSStrokeColorAttributeName : UIColor.blackColor(), // black text border color
-        NSForegroundColorAttributeName : UIColor.whiteColor(), // white text color
+        NSStrokeColorAttributeName : UIColor.blackColor(),
+        NSForegroundColorAttributeName : UIColor.whiteColor(),
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : -4.0 //a negative value for stroke width creates both a fill and stroke.
+        NSStrokeWidthAttributeName : -4.0
     ]
     
-    // the ratio the decide the memeTextField Position
     let MemeTextPorportion: CGFloat = 0.3
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // view size is used to decide the position of Top/Bottom Text
         viewSize = view.frame.size
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        
         /*
             1. There should be two textfields, reading “TOP” and “BOTTOM” when a user opens the Meme Editor.
             2. Text should be center-aligned.
@@ -106,11 +99,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        // take a photo
-        if sender.tag == 0 {
+        
+        if sender.tag == 0 { // take a photo
             imagePicker.sourceType = .Camera
+        } else { // pick a image from photolibrary
+            imagePicker.sourceType = .PhotoLibrary
         }
-        // otherwise, pick a image from photolibrary
         
         presentViewController(imagePicker, animated: true, completion: nil)
         
@@ -147,8 +141,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         var scaledImageHeight = viewSize.height
         var scaledImageWidth = viewSize.width
         if let image = imageView.image {
-            scaledImageHeight = min(viewSize.width * image.size.height / image.size.width, viewSize.height)
-            scaledImageWidth =  scaledImageHeight * image.size.width / image.size.height
+            scaledImageHeight = floor(min(viewSize.width * image.size.height / image.size.width, viewSize.height))
+            scaledImageWidth =  floor(scaledImageHeight * image.size.width / image.size.height)
         }
         // set the memedImage size for saving meme later
         memedImageWidth = scaledImageWidth
@@ -209,8 +203,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         // hide the toolbar
         hideToolbar(true)
 
-        let x = imageView.center.x - memedImageWidth * 0.5
-        let y = imageView.center.y - memedImageHeight * 0.5
+        let x = floor(imageView.center.x - memedImageWidth * 0.5)
+        let y = floor(imageView.center.y - memedImageHeight * 0.5)
         
         let memedImageRect = CGRectMake(x, y, memedImageWidth, memedImageHeight)
 
