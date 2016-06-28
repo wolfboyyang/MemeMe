@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe
 //
 //  Created by Wei Yang on 6/10/16.
@@ -243,7 +243,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // When a user taps inside a textfield, the default text should clear.
     func textFieldDidBeginEditing(textField: UITextField) {
-        textField.text = ""
+        if textField.text == "TOP" || textField.text == "BOTTOM" {
+            textField.text = ""
+        }
     }
     
     // make sure all input characters are in uppercase
